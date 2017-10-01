@@ -1,7 +1,9 @@
 <Project Sdk="Microsoft.Net.Sdk">
+
   <PropertyGroup>
     <TargetFramework>net462</TargetFramework>
   </PropertyGroup>
+
   <PropertyGroup>
     <BinFormat>elf</BinFormat>
     <Profile>VMware</Profile>
@@ -17,26 +19,26 @@
     <Launch>VMware</Launch>
     <VisualStudioDebugPort>Pipe: Cosmos\Serial</VisualStudioDebugPort>
   </PropertyGroup>
+
   <ItemGroup>
     <None Remove="*" />
     <Compile Remove="*" />
   </ItemGroup>
+
   <ItemGroup>
-    <ProjectReference Include="..\Hardware\Hardware.csproj">
+    <ProjectReference Include=".\Hardware.csproj">
       <Name>Hardware</Name>
       <Project>{3a6e2949-ea20-4929-91dc-9a11cacaae0a}</Project>
-      <Private>True</Private>
-    </ProjectReference>
-    <ProjectReference Include=".\Velocity.csproj">
-      <Name>Velocity</Name>
-      <Project>{89ed7353-938f-432b-94c3-6039b3d7c814}</Project>
     </ProjectReference>
   </ItemGroup>
+
   <ItemGroup>
     <Reference Include="Cosmos.Core.Plugs, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5ae71220097cb983" />
     <Reference Include="Cosmos.Core.Plugs.Asm, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5ae71220097cb983" />
     <Reference Include="Cosmos.Debug.Kernel.Plugs.Asm, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5ae71220097cb983" />
     <Reference Include="Cosmos.System.Plugs, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5ae71220097cb983" />
   </ItemGroup>
+
   <Import Project="$(AppData)\Cosmos User Kit\Build\VSIP\Cosmos.targets" />
+
 </Project>

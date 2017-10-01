@@ -1,28 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Sys = Cosmos.System;
+using Hardware;
 
 namespace Velocity
 {
     public class Kernel : Sys.Kernel
     {
+        public VelocityX velocityX = new VelocityX();
+        public UnixTime time = new UnixTime();
         public String version = "1.0.0";
         protected override void BeforeRun()
         {
             Console.Clear();
             Console.WriteLine("Welcome to Velocity [v" + version + "].\n");
+            Console.WriteLine("Current time: "+time.Hour()+":"+time.Minute()+":"+time.Second()+"\n");
             Console.WriteLine("Velocity/Cosmos comes with ABSOLUTELY NO WARRANTY,\nto the extent permitted by applicable law.\n");
-        }
-
-        protected void BeforeRunX()
-        {
-            Console.WriteLine("Now entering GUI mode.. [to exit reboot]");
-        }
-
-        protected void RunX()
-        {
-
         }
 
         protected override void Run()
@@ -40,11 +32,15 @@ namespace Velocity
                     Console.WriteLine("Commands:");
                     Console.WriteLine("> help");
                     Console.WriteLine("> startx");
+                    Console.WriteLine("> time");
                     Console.WriteLine("> reboot");
                     Console.WriteLine("===== ==== =====");
                     break;
                 case "startx":
-                    RunX();
+                    velocityX.Start();
+                    break;
+                case "time":
+                    Console.WriteLine("The time now is: "+time.Hour()+":"+time.Minute()+":"+time.Second());
                     break;
                 case "reboot":
                     Sys.Power.Reboot();
