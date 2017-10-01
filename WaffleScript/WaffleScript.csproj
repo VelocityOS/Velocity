@@ -2,16 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.5</TargetFramework>
-    <ProjectGuid>{3a6e2949-ea20-4929-91dc-9a11cacaae0a}</ProjectGuid>
-    <PackageReleaseNotes />
+    <ProjectGuid>{b7f20185-f0ca-46ae-8fb0-749d38ebb07e}</ProjectGuid>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Display\BufferedDisplayDriver.cs" />
+    <None Remove="WaffleScriptBoot.Cosmos" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="HardwareBoot.Cosmos" />
+    <Compile Include="WaffleShell.cs" />
   </ItemGroup>
   
   <ItemGroup>

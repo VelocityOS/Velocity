@@ -7,7 +7,7 @@ namespace Velocity
 {
     public class VelocityX
     {
-        protected DisplayDriver display;
+        protected VelocityDisplayDriver display;
 
         public void Start()
         {
@@ -17,7 +17,7 @@ namespace Velocity
         protected void BeforeRunX()
         {
             Console.WriteLine("Now entering GUI mode.. [to exit reboot]");
-            display = new DisplayDriver();
+            display = new VelocityDisplayDriver();
             display.init();
             while (true)
             {
@@ -25,13 +25,13 @@ namespace Velocity
             }
         }
 
+        int y = 0;
         protected void RunX()
         {
-            display.clear(63);
-
+            y += 1;
             for (var i = 0; i < 100; i++)
             {
-                display.setPixel(i, i, 5);
+                display.setPixel(i, y, 63);
             }
 
             display.step();

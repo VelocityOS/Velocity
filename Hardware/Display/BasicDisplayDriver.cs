@@ -2,12 +2,11 @@
 using Sys = Cosmos.System;
 namespace Hardware.Display
 {
-    public class DisplayDriver
+    public class BasicDisplayDriver
     {
-
         protected VGAScreen screen;
 
-        public DisplayDriver()
+        public BasicDisplayDriver()
         {
             screen = new VGAScreen();
         }

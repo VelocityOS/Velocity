@@ -1,6 +1,7 @@
 ﻿using System;
 using Sys = Cosmos.System;
 using Hardware;
+using WaffleScript;
 
 namespace Velocity
 {
@@ -33,6 +34,7 @@ namespace Velocity
                     Console.WriteLine("> help");
                     Console.WriteLine("> startx");
                     Console.WriteLine("> time");
+                    Console.WriteLine("> waffle");
                     Console.WriteLine("> reboot");
                     Console.WriteLine("===== ==== =====");
                     break;
@@ -41,6 +43,10 @@ namespace Velocity
                     break;
                 case "time":
                     Console.WriteLine("The time now is: "+time.Hour()+":"+time.Minute()+":"+time.Second());
+                    break;
+                case "waffle":
+                    WaffleShell waffleShell = new WaffleShell();
+                    waffleShell.join();
                     break;
                 case "reboot":
                     Sys.Power.Reboot();
