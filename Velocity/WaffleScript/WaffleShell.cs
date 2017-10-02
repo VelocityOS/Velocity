@@ -10,7 +10,7 @@ namespace WaffleScript
         public void join()
         {
             Boolean running = true;
-            Console.WriteLine("WaffleScript v1.0\nType quit to exit WS.\n");
+            Console.WriteLine("WaffleScript v1.1\nType quit to exit WS.\n");
             while (running)
             {
                 Console.Write("WS> ");
