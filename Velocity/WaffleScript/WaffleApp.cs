@@ -5,10 +5,15 @@ namespace WaffleScript
 {
     class WaffleApp
     {
-        //IDictionary<string, WaffleObject> objects = new Dictionary<string, WaffleObject>();
+        WaffleObjectContainer objects = new WaffleObjectContainer();
         Boolean debug = false;
 
         public WaffleApp() {}
+
+        protected void deb(String message)
+        {
+            Console.WriteLine("[DEBUG] "+message);
+        }
 
         protected void err(int line, String error)
         {
@@ -18,8 +23,8 @@ namespace WaffleScript
 
         void addObj(String key, String type, Object value)
         {
-            if (debug) Console.WriteLine("New object created, "+key+", with type, "+type+".");
-            //objects.Add(key, new WaffleObject(type, value));
+            deb("New object created, "+key+", with type, "+type+".");
+            objects.add(key, type, value);
         }
 
         /*
@@ -35,19 +40,35 @@ namespace WaffleScript
             for (var i=0;i<lines.Length;i++)
             {
                 var l = lines[i].Split(' ');
-                if (debug) Console.WriteLine("Length: "+l.Length);
+                deb("Length: "+l.Length);
                 if (l.Length>0)
                 {
                     var OP = l[0];
-                    if (debug) Console.WriteLine("OP: " + OP);
+                    deb("OP: " + OP);
                     if (OP=="WFL")
                     {
                         if (l.Length>1)
                         {
                             if (l[1]=="debug")
                             {
-                                Console.WriteLine("Enabled debug.");
-                                debug = true;
+                                if (debug)
+                                {
+                                    debug = false;
+                                    Console.WriteLine("Disabled debug mode.");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Enabled debug mode.");
+                                    debug = true;
+                                }
+                            }
+                            else if (l[1]=="objects")
+                            {
+                                var arr = objects.obj.ToArray();
+                                for (var y=0;y<arr.Length;y++)
+                                {
+                                    Console.WriteLine("["+arr[y].key+"] {"+arr[y].type+"}: "+arr[y].obj);
+                                }
                             }
                             else
                             {
@@ -56,17 +77,17 @@ namespace WaffleScript
                         }
                         else
                         {
-                            Console.WriteLine("Running WaffleScript v1.1");
+                            Console.WriteLine("Running WaffleScript v1.1.2");
                         }
                     }
                     else if (OP=="SET")
                     {
                         if (l.Length>1)
                         {
-                            var dest = l[2];
+                            var dest = l[1];
                             if (l.Length > 2)
                             {
-                                addObj(dest, "string", l[0]);
+                                addObj(dest, "string", l[2]);
                             }
                             else
                             {
