@@ -12,7 +12,7 @@ namespace WaffleScript
 
         protected void deb(String message)
         {
-            Console.WriteLine("[DEBUG] "+message);
+            if (debug) Console.WriteLine("[DEBUG] "+message);
         }
 
         protected void err(int line, String error)
@@ -21,11 +21,19 @@ namespace WaffleScript
             Console.WriteLine("Encountered an error: "+error);
         }
 
-        void addObj(String key, String type, Object value)
+        void setObj(String key, String type, Object value)
         {
             deb("New object created, "+key+", with type, "+type+".");
-            objects.add(key, type, value);
+            objects.set(key, type, value);
         }
+		
+		void appendObj(String key, String type, Object value)
+		{
+			if (objects.append(key, type, value))
+			{
+                deb("Appended object of type, "+type+", to object, "+key+".");
+			}
+		}
 
         /*
         SET myvar "text"
@@ -80,18 +88,38 @@ namespace WaffleScript
                             Console.WriteLine("Running WaffleScript v1.1.2");
                         }
                     }
+					else if (OP=="REF")
+					{
+						if (l.Length>2)
+						{
+							//setObj();
+						}
+						else
+						{
+							err(i, "Missing operand.");
+						}
+					}
                     else if (OP=="SET")
                     {
-                        if (l.Length>1)
+                        if (l.Length>4)
                         {
                             var dest = l[1];
-                            if (l.Length > 2)
+							var type = l[3];
+                            if (l[2]=="=")
                             {
-                                addObj(dest, "string", l[2]);
+								Object value = l[4];
+								if (type=="string" && l.Length>5)
+								{
+									for (var y=5;y<l.Length;y++)
+									{
+										value += " "+l[y];
+									}
+								}
+                                setObj(dest, type, value);
                             }
                             else
                             {
-                                err(i, "Missing operand.");
+                                err(i, "Unknown OP Code.");
                             }
                         }
                         else

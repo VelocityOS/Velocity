@@ -8,9 +8,20 @@ namespace WaffleScript
     {
         public List<WaffleObject> obj = new List<WaffleObject>();
         public WaffleObjectContainer() {}
-        public void add(String key, String type, Object value)
+        public void set(String key, String type, Object value)
         {
             obj.Add(new WaffleObject(key, type, value));
         }
+		public Boolean append(String key, String type, Object value)
+		{
+			if (type=="string" || type=="int")
+			{
+                return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
     }
 }
