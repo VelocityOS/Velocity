@@ -1,6 +1,7 @@
 ﻿using System;
 using Sys = Cosmos.System;
 using Hardware;
+using Hardware.Display;
 using WaffleScript;
 
 namespace Velocity
@@ -12,6 +13,10 @@ namespace Velocity
         public String version = "1.0.0";
         protected override void BeforeRun()
         {
+            Console.WriteLine("\n\n\nInitialising Filesystem!");
+            var fs = new Sys.FileSystem.CosmosVFS();
+            Sys.FileSystem.VFS.VFSManager.RegisterVFS(fs);
+            Console.WriteLine("Initialised Filesystem!\n\n\n");
             Console.Clear();
             Console.WriteLine("Welcome to Velocity [v" + version + "].\n");
             Console.WriteLine("Current time: "+time.Hour()+":"+time.Minute()+":"+time.Second()+"\n");
@@ -37,6 +42,14 @@ namespace Velocity
                     Console.WriteLine("> waffle");
                     Console.WriteLine("> reboot");
                     Console.WriteLine("===== ==== =====");
+                    break;
+                case "benchx":
+                    BasicDisplayDriver driver = new BasicDisplayDriver();
+                    driver.init();
+                    for (var y = 0; y < 100; y++)
+                    {
+                        driver.setPixel(y, y, 25);
+                    }
                     break;
                 case "startx":
                     velocityX.Start();
